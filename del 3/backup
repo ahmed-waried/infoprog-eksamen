@@ -1,0 +1,8 @@
+  //genererin av 10 farger
+document.getElementById("generateAll").addEventListener("click", () => {
+    colors = []; //nullstil 
+    for (let i = 0; i < 10; i++) {
+        colors.push(getRandomColor()); // legges til tilfeldige colors/farger
+    }
+    updateCanvas(); //viser farger
+    console.log("10 nye farger generert:", colors);

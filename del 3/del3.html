@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">         
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eksam del 3</title>
+    <link href="exam3.css" rel="stylesheet" media="all">
+</head>
+<body>
+    <main>
+        <h1>Fargepaletten</h1>
+        <canvas id="colorspace"></canvas>
+        <nav>
+            <button id="addColor">Legg till en farge</button>
+            <button id="emptyArray">Tilbakestill fargene</button>
+            <button id="generateAll">Generer 10 nye farger</button>
+        </nav>
+        <h2>Endre farger:</h2>
+        <section>
+            <p>Bytt ut fargen i rute <select id="colorSquareIndex">
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+                 <option value="4">5</option>
+                <option value="5">6</option>
+                <option value="6">7</option>
+                <option value="7">8</option>
+                <option value="8">9</option>
+                <option value="9">10</option>
+            </select> med #<input type="text" id="newColor" /> <button id="saveNewColor">Lagre ny farge</button></p>
+        </section>
+    </main>
+    
+    <script>
+        // Konfigurerer canvas elementet
+        const canvas = document.getElementById("colorspace");
+        canvas.width = 1000;  // Setter bredde på canvas
+        canvas.height = 100;  // Setter høyde på canvas
+        const ctx = canvas.getContext("2d");  // gir tilgang til tegnekonteksten
+
+        // Array for å lagre fargene i koden
+        let colors = [];
+
+        // Funksjon for å generere en tilfeldig hex-fargekode
+        function getRandomColor() {
+            const letters = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        //  oppgit "Legg til en farge" legger til tilfeldig farge i arrayen og viser den til konsollen
+        document.getElementById("addColor").addEventListener("click", () => {
+            if (colors.length < 10) { // viser om det er mindre enn 10 farger i arrayen
+                const newColor = getRandomColor(); // Genererer ny tilfeldig farge
+                colors.push(newColor); // Legger den nye fargen  i arrayen
+                console.log(colors); // Logger arayen med farger til konsolen
+                updateCanvas(); // Oppdatert canvas med ny fargen
+            } else {
+                alert("Du kan ikke legge til flere farger, maks 10 farger."); // maks antall farger varsling
+            }
+        });
+
+        // Funksjonen for til oppdateringen av canvas med fargene i arrayen
+        function updateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Tømmer canvas før oppdatering
+            colors.forEach((color, index) => { 
+                ctx.fillStyle = color;  // Setter fyllfargen til den nåværende fargen
+                ctx.fillRect(index * 100, 0, 100, 100); // Tegner rektangler for hver farge
+            });
+        }
+
+        // tilbakestillng av  farger
+document.getElementById("emptyArray").addEventListener("click", () => {
+    colors = []; // Nullstill fargearrayene
+    updateCanvas(); // Oppdaterer canvasen som at de tømmer skjermen
+    console.log("Fargene er tilbakestilt.");
+});
+
+   
+
+// Initial rendering av canvas (selv om ingen farger er lagt til ennå)
+                updateCanvas();
+
+
+</script>
+</body>
+
+</html>
